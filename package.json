@@ -1,0 +1,33 @@
+{
+  "name": "pokemon-api",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000B\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000-\u0000A\u0000P\u0000I\u0000-\u0000C\u0000h\u0000a\u0000l\u0000l\u0000e\u0000n\u0000g\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./API/index.js",
+    "dev": "nodemon ./API/index.js",
+    "lint": "eslint ./API",
+    "lint-fix": "eslint ./API --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanpabloCamus/Backend-API-Challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juanpabloCamus/Backend-API-Challenge/issues"
+  },
+  "homepage": "https://github.com/juanpabloCamus/Backend-API-Challenge#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}
