@@ -85,7 +85,6 @@ cardRouter.put('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const {
-      name,
       hp,
       firstEdition,
       expansion,
@@ -94,6 +93,11 @@ cardRouter.put('/:id', async (req, res, next) => {
       image,
       price,
     } = req.body;
+
+    // Capitalizing name
+    let { name } = req.body;
+    name = name.toLowerCase();
+    name = name.charAt(0).toUpperCase() + name.slice(1);
 
     const updatedCard = await Card.findByIdAndUpdate(id, {
       name,
@@ -104,7 +108,7 @@ cardRouter.put('/:id', async (req, res, next) => {
       rarity,
       image,
       price,
-    }, { new: true });
+    }, { new: true, runValidators: true });
 
     if (updatedCard === null) return res.status(404).send('No card found with that id');
 
