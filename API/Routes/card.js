@@ -1,22 +1,41 @@
 const cardRouter = require('express').Router();
+const { where } = require('../Models/Card');
 const Card = require('../Models/Card');
 
+// Return all cards or find a card by name
 cardRouter.get('/', async (req, res, next) => {
-  try {
-    const cards = await Card.find();
+  let { name } = req.query;
 
-    if (cards.length === 0) return res.status(404).send('No cards created yet!');
+  if (name) {
+    try {
+      name = name.toLowerCase();
+      name = name.charAt(0).toUpperCase() + name.slice(1);
 
-    return res.status(200).send(cards);
-  } catch (error) {
-    next(error);
+      const cards = await Card.findOne({ name });
+
+      if (cards === null) return res.status(404).send('No card found with that name');
+      return res.status(200).send(cards);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    try {
+      const cards = await Card.find();
+
+      if (cards.length === 0) return res.status(404).send('No cards created yet!');
+
+      return res.status(200).send(cards);
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
+// Return card by id
 cardRouter.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const cards = await Card.findById({ id });
+    const cards = await Card.findById(id);
 
     if (cards === null) return res.status(404).send('No card found with that id');
 
@@ -29,7 +48,6 @@ cardRouter.get('/:id', async (req, res, next) => {
 cardRouter.post('/', async (req, res, next) => {
   try {
     const {
-      name,
       hp,
       firstEdition,
       expansion,
@@ -38,6 +56,11 @@ cardRouter.post('/', async (req, res, next) => {
       image,
       price,
     } = req.body;
+
+    // Capitalizing name
+    let { name } = req.body;
+    name = name.toLowerCase();
+    name = name.charAt(0).toUpperCase() + name.slice(1);
 
     const newCard = new Card({
       name,

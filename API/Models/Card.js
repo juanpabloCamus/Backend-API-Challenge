@@ -22,19 +22,25 @@ const cardSchema = new Schema({
     type: String,
     enum: {
       values: ['Base Set', 'Jungle', 'Fossil', 'Base Set 2'],
-      message: '{VALUE} is not supported as expansion. Only Base Set, Jungle, Fossil, Base Set 2',
+      message: '{VALUE} is not supported as expansion. Only Base Set, Jungle, Fossil or Base Set 2',
     },
     required: true,
     default: 'Base Set',
   },
   type: {
     type: String,
-    enum: ['Water', 'Fire', 'Grass', 'Electric'],
+    enum: {
+      values: ['Water', 'Fire', 'Grass', 'Electric'],
+      message: '{VALUE} is not supported as type. Only Water, Fire, Grass or Electric',
+    },
     required: true,
   },
   rarity: {
     type: String,
-    enum: ['Common', 'Not Common', 'Rare'],
+    enum: {
+      values: ['Common', 'Not Common', 'Rare'],
+      message: '{VALUE} is not supported as rarity. Only Common, Not Common or Rare',
+    },
     default: 'Common',
     required: true,
   },
@@ -46,7 +52,7 @@ const cardSchema = new Schema({
     type: String,
     required: true,
   },
-});
+}, { timestamps: true });
 
 const Card = model('Card', cardSchema);
 
