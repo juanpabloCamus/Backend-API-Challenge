@@ -52,4 +52,43 @@ cardRouter.post('/', async (req, res) => {
   }
 });
 
+cardRouter.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      hp,
+      firstEdition,
+      expansion,
+      type,
+      rarity,
+      image,
+    } = req.body;
+
+    const updatedCard = await Card.findByIdAndUpdate(id, {
+      name,
+      hp,
+      firstEdition,
+      expansion,
+      type,
+      rarity,
+      image,
+    }, { new: true });
+
+    return res.send(updatedCard);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+cardRouter.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Card.findByIdAndRemove(id);
+    return res.send(deleted);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = cardRouter;
