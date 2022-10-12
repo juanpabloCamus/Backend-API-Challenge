@@ -1,5 +1,4 @@
 const cardRouter = require('express').Router();
-const { where } = require('../Models/Card');
 const Card = require('../Models/Card');
 
 // Return all cards or find a card by name
@@ -61,6 +60,9 @@ cardRouter.post('/', async (req, res, next) => {
     let { name } = req.body;
     name = name.toLowerCase();
     name = name.charAt(0).toUpperCase() + name.slice(1);
+
+    const isCreated = await Card.findOne({ name });
+    if (isCreated) return res.status(400).send('A card with this name is already created!');
 
     const newCard = new Card({
       name,
