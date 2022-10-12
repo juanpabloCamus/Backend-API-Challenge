@@ -32,6 +32,7 @@ cardRouter.post('/', async (req, res) => {
       type,
       rarity,
       image,
+      price,
     } = req.body;
 
     const newCard = new Card({
@@ -42,6 +43,7 @@ cardRouter.post('/', async (req, res) => {
       type,
       rarity,
       image,
+      price,
     });
 
     await newCard.save();
@@ -63,6 +65,7 @@ cardRouter.put('/:id', async (req, res) => {
       type,
       rarity,
       image,
+      price,
     } = req.body;
 
     const updatedCard = await Card.findByIdAndUpdate(id, {
@@ -73,6 +76,7 @@ cardRouter.put('/:id', async (req, res) => {
       type,
       rarity,
       image,
+      price,
     }, { new: true });
 
     return res.send(updatedCard);
