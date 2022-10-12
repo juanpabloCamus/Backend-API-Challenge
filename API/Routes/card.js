@@ -22,4 +22,34 @@ cardRouter.get('/:name', async (req, res) => {
   }
 });
 
+cardRouter.post('/', async (req, res) => {
+  try {
+    const {
+      name,
+      hp,
+      firstEdition,
+      expansion,
+      type,
+      rarity,
+      image,
+    } = req.body;
+
+    const newCard = new Card({
+      name,
+      hp,
+      firstEdition,
+      expansion,
+      type,
+      rarity,
+      image,
+    });
+
+    await newCard.save();
+
+    return res.send(newCard);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = cardRouter;
