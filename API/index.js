@@ -10,8 +10,13 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/card', cardRouter);
 
-app.get('/', (req, res) => {
-  res.send('Welcome to PokeCard API');
+// Error Handler Middleware
+app.use((error, req, res, next) => {
+  console.error(error);
+  if (error.name === 'ValidationError') {
+    return res.status(400).send(error.message);
+  }
+  return res.send(error);
 });
 
 app.listen(PORT, () => {

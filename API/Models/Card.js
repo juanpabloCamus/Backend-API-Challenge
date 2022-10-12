@@ -12,7 +12,7 @@ const cardSchema = new Schema({
       function validate(hp) {
         return hp % 10 === 0;
       },
-      'El hp deberia ser multiplo de 10'],
+      'HP should be a multiple of 10'],
   },
   firstEdition: {
     type: Boolean,
@@ -20,10 +20,16 @@ const cardSchema = new Schema({
   },
   expansion: {
     type: String,
+    enum: {
+      values: ['Base Set', 'Jungle', 'Fossil', 'Base Set 2'],
+      message: '{VALUE} is not supported as expansion. Only Base Set, Jungle, Fossil, Base Set 2',
+    },
     required: true,
+    default: 'Base Set',
   },
   type: {
     type: String,
+    enum: ['Water', 'Fire', 'Grass', 'Electric'],
     required: true,
   },
   rarity: {
