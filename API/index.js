@@ -11,7 +11,7 @@ app.use(express.json());
 app.use('/card', cardRouter);
 
 app.get('/', (req, res) => {
-  res.send('home');
+  res.send('Welcome to PokeCard API');
 });
 
 app.listen(PORT, () => {

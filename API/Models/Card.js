@@ -8,6 +8,11 @@ const cardSchema = new Schema({
   hp: {
     type: Number,
     required: true,
+    validate: [
+      function validate(hp) {
+        return hp % 10 === 0;
+      },
+      'El hp deberia ser multiplo de 10'],
   },
   firstEdition: {
     type: Boolean,
