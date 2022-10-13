@@ -19,7 +19,11 @@ cardRouter.get('/', async (req, res, next) => {
     }
   } else {
     try {
-      const cards = await Card.find();
+      const { page } = req.query;
+      const cards = await Card.paginate({}, {
+        page,
+        limit: 5,
+      });
 
       if (cards.length === 0) return res.status(404).send('No cards created yet!');
 
