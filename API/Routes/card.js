@@ -1,7 +1,7 @@
 const cardRouter = require('express').Router();
 const Card = require('../Models/Card');
 
-// Return all cards or find a card by name
+// Return all cards (you can send filters by query) or find a card by name
 cardRouter.get('/', async (req, res, next) => {
   let { name } = req.query;
 
