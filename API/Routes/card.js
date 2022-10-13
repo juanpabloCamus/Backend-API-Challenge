@@ -19,13 +19,25 @@ cardRouter.get('/', async (req, res, next) => {
     }
   } else {
     try {
-      const { page } = req.query;
+      const {
+        page,
+        expansion,
+        type,
+        rarity,
+      } = req.query;
+
       const cards = await Card.paginate({}, {
         page,
         limit: 5,
       });
 
-      if (cards.length === 0) return res.status(404).send('No cards created yet!');
+      if (cards.docs.length === 0) return res.status(404).send('No cards created yet!');
+
+      if (expansion) cards.docs = cards.docs.filter((c) => c.expansion === expansion);
+      if (type) cards.docs = cards.docs.filter((c) => c.type === type);
+      if (rarity) cards.docs = cards.docs.filter((c) => c.rarity === rarity);
+
+      cards.totalDocs = cards.docs.length;
 
       return res.status(200).send(cards);
     } catch (error) {
